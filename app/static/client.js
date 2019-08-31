@@ -1,5 +1,17 @@
 var el = x => document.getElementById(x);
 
+function prettifyResult(result) {
+  const prettyResults = {
+    p51: 'P-51 Mustang',
+    p47: 'P-47 Thunderbolt',
+    p38: 'P-38 Lightning',
+    me109: 'Me109',
+    fw190: 'Fw190',
+    spitfire: 'Spitfire',
+  };
+  return prettyResults[result];
+}
+
 function showPicker() {
   el("file-input").click();
 }
@@ -29,9 +41,9 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+      el("result-label").innerHTML = `Looks like a ${prettifyResult(response["result"])}!`;
     }
-    el("analyze-button").innerHTML = "Analyze";
+    el("analyze-button").innerHTML = "What Warbird?";
   };
 
   var fileData = new FormData();
